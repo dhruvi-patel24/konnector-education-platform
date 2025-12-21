@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_21_152630) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_21_153042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "batches", force: :cascade do |t|
+    t.bigint "course_id", null: false
+    t.datetime "created_at", null: false
+    t.date "end_date"
+    t.string "name"
+    t.date "start_date"
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_batches_on_course_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -45,5 +55,7 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_21_152630) do
     t.index ["school_id"], name: "index_users_on_school_id"
   end
 
+  add_foreign_key "batches", "courses"
+  add_foreign_key "courses", "schools"
   add_foreign_key "users", "schools"
 end
