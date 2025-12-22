@@ -1,0 +1,39 @@
+<div style="text-align: center;">
+  <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to Konnector</h1>
+  <p style="font-size: 1.25rem; color: var(--text-light); max-width: 600px; margin: 0 auto 2rem;">
+    A SAAS platform for educational organizations to manage schools, courses, and student progress.
+  </p>
+</div>
+
+<% unless user_signed_in? %>
+  <div style="max-width: 400px; margin: 0 auto 4rem;">
+    <div class="card">
+      <h2 style="margin-top: 0; margin-bottom: 1.5rem; text-align: center;">Log in</h2>
+
+      <%= form_for(User.new, as: :user, url: session_path(:user)) do |f| %>
+        <div class="form-group">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "current-password", required: true %>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+          <%= f.check_box :remember_me, style: "width: auto;" %>
+          <%= f.label :remember_me, style: "margin-bottom: 0;" %>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <%= f.submit "Log in", class: "btn btn-primary", style: "width: 100%;" %>
+        </div>
+      <% end %>
+
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem;">
+        <%= link_to "Don't have an account? Sign up", new_user_registration_path, style: "color: var(--primary); text-decoration: none; font-weight: 600;" %>
+      </div>
+    </div>
+  </div>
+<% end %>
