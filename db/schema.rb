@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_21_153042) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_22_061611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,17 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_21_153042) do
     t.bigint "school_id", null: false
     t.datetime "updated_at", null: false
     t.index ["school_id"], name: "index_courses_on_school_id"
+  end
+
+  create_table "enrollments", force: :cascade do |t|
+    t.bigint "batch_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "status"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["batch_id"], name: "index_enrollments_on_batch_id"
+    t.index ["user_id", "batch_id"], name: "index_enrollments_on_user_id_and_batch_id", unique: true
+    t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -57,5 +68,7 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_21_153042) do
 
   add_foreign_key "batches", "courses"
   add_foreign_key "courses", "schools"
+  add_foreign_key "enrollments", "batches"
+  add_foreign_key "enrollments", "users"
   add_foreign_key "users", "schools"
 end
