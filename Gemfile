@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.2.0.alpha"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
+gem "propshaft"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -49,3 +50,10 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 end
 gem "devise"
+gem "pundit"
+
+group :development, :test do
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+end
