@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum :role, { admin: 0, school_admin: 1, student: 2 }
+  enum :role, { admin: 0, school_admin: 1, student: 2 }, default: :student
 
   belongs_to :school, optional: true
   has_many :enrollments
