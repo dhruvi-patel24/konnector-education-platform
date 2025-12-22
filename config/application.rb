@@ -34,7 +34,7 @@ module KonnectorEducationPlatform
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
-    config.session_store :cookie_store, key: '_konnector_session'
+    config.session_store :cookie_store, key: "_konnector_session"
 
     # Add assets paths
     config.assets.paths << Rails.root.join("app", "assets", "stylesheets")
