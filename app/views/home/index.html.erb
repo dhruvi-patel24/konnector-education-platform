@@ -5,19 +5,7 @@
   </p>
 </div>
 
-<% if user_signed_in? %>
-  <div style="text-align: center; margin-top: 2rem;">
-    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-      Logged in as <strong><%= current_user.email %></strong> (<%= current_user.role.titleize %>)
-    </p>
-    
-    <div style="display: flex; justify-content: center; gap: 1rem;">
-      
-      <%= link_to "Go to Dashboard", root_path, class: "btn btn-primary" %>
-      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline", style: "background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;" %>
-    </div>
-  </div>
-<% else %>
+<% unless user_signed_in? %>
   <div style="max-width: 400px; margin: 0 auto 4rem;">
     <div class="card">
       <h2 style="margin-top: 0; margin-bottom: 1.5rem; text-align: center;">Log in</h2>

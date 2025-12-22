@@ -2,12 +2,17 @@
 <html>
   <head>
     <title>Konnector Education Platform</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <nav>
-      <div>Konnector Education Platform</div>
-      <div>
+      <div style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Konnector Education Platform</div>
+      <div class="nav-links">
         <% if user_signed_in? %>
           <% if current_user.admin? %>
             <%= "Role: #{current_user.role}" %><br>
@@ -27,7 +32,7 @@
             <%= link_to "My Batches", student_batches_path %>
             <%= link_to "Request Enrollment", student_enrollments_path %>
           <% end %>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn", style: "background: none; border: none; color: var(--danger); font-weight: 600;" %>
         <% else %>
           <%= link_to "Login", root_path %>
           <%= link_to "Sign Up", new_user_registration_path %>
@@ -35,5 +40,14 @@
       </div>
     </nav>
 
+    <div class="container">
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>">
+          <%= message %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
   </body>
 </html>
