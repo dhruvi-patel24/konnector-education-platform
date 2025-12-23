@@ -1,0 +1,27 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1>Batches</h1>
+  <%= link_to "Add New Batch", new_school_admin_batch_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Course</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @batches.each do |batch| %>
+        <tr>
+          <td><%= batch.name %></td>
+          <td><%= batch.course.name %></td>
+          <td><%= batch.start_date %></td>
+          <td><%= batch.end_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

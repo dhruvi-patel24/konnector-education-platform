@@ -1,0 +1,32 @@
+<h1>Add New Batch</h1>
+
+<div class="card" style="max-width: 600px;">
+  <%= form_with(model: [:school_admin, @batch], local: true) do |f| %>
+    <%= render "shared/errors", object: @batch %>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :course_id %>
+      <%= f.collection_select :course_id, current_user.school.courses, :id, :name, { prompt: "Select Course" }, { required: true } %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :start_date %>
+      <%= f.date_field :start_date, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :end_date %>
+      <%= f.date_field :end_date, required: true %>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <%= f.submit "Create Batch", class: "btn btn-primary" %>
+      <%= link_to "Cancel", school_admin_batches_path, class: "btn", style: "color: var(--text-light);" %>
+    </div>
+  <% end %>
+</div>

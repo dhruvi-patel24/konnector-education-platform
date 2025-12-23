@@ -10,6 +10,20 @@ Rails.application.routes.draw do
     root to: "schools#index"
   end
 
+  namespace :school_admin do
+    resources :schools, only: [ :edit, :update ]
+    resources :courses, only: [ :index, :new, :create ]
+    resources :batches, only: [ :index, :new, :create ]
+    resources :enrollments, only: [ :index, :create, :update ]
+    root to: "courses#index"
+  end
+
+  namespace :student do
+    resources :enrollments, only: [ :index, :create ]
+    resources :batches, only: [ :index, :show ]
+    root to: "batches#index"
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
