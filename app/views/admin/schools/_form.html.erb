@@ -1,0 +1,19 @@
+<div class="card" style="max-width: 600px;">
+  <%= form_with(model: [:admin, @school], local: true) do |f| %>
+    <%= render "shared/error_messages", object: @school %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_area :address %>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <%= f.submit @school.new_record? ? "Create School" : "Update School", class: "btn btn-primary" %>
+      <%= link_to "Cancel", admin_schools_path, class: "btn", style: "color: var(--text-light);" %>
+    </div>
+  <% end %>
+</div>
