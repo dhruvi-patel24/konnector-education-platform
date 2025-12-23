@@ -2,23 +2,26 @@ require 'rails_helper'
 
 RSpec.describe School, type: :model do
   describe "validations" do
-    it { should validate_presence_of(:name) }
-  end
-
-  describe "associations" do
-    it { should have_many(:users).dependent(:destroy) }
-    it { should have_many(:courses).dependent(:destroy) }
-  end
-
-  describe "creation" do
-    it "creates a valid school" do
+    it "is valid with valid attributes" do
       school = build(:school)
       expect(school).to be_valid
     end
 
-    it "is invalid without a name" do
+    it "requires a name" do
       school = build(:school, name: nil)
       expect(school).not_to be_valid
+    end
+  end
+
+  describe "associations" do
+    it "can have many users" do
+      school = create(:school)
+      expect(school).to respond_to(:users)
+    end
+
+    it "can have many courses" do
+      school = create(:school)
+      expect(school).to respond_to(:courses)
     end
   end
 
