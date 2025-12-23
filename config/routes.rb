@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   namespace :admin do
     resources :schools
-    resources :school_admins, only: [:new, :create]
+    resources :users
     root to: "schools#index"
   end
 
