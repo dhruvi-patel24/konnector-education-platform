@@ -1,0 +1,61 @@
+<h1>Enrollments</h1>
+
+<div class="card" style="margin-bottom: 2rem;">
+  <h3>Enroll Student</h3>
+  <%= form_with(model: [:school_admin, Enrollment.new], local: true) do |f| %>
+    <div style="display: flex; gap: 1rem; align-items: flex-end;">
+      <div class="form-group" style="flex: 1; margin-bottom: 0;">
+        <%= f.label :user_id, "Student" %>
+        <%= f.collection_select :user_id, current_user.school.users.student, :id, :email, { prompt: "Select Student" }, { required: true, style: "width: 100%;" } %>
+      </div>
+
+      <div class="form-group" style="flex: 1; margin-bottom: 0;">
+        <%= f.label :batch_id, "Batch" %>
+        <%= f.collection_select :batch_id, Batch.joins(:course).where(courses: { school_id: current_user.school_id }), :id, :name, { prompt: "Select Batch" }, { required: true, style: "width: 100%;" } %>
+      </div>
+
+      <%= f.submit "Enroll", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Batch</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.user.email %></td>
+          <td><%= enrollment.batch.name %></td>
+          <td><%= enrollment.batch.course.name %></td>
+          <td>
+            <span class="badge badge-<%= enrollment.status %>">
+              <%= enrollment.status.titleize %>
+            </span>
+          </td>
+          <td>
+            <% if enrollment.pending? %>
+              <%= form_with(model: [:school_admin, enrollment], method: :patch, style: "display: inline;") do |f| %>
+                <%= f.hidden_field :status, value: "approved" %>
+                <%= f.submit "Approve", class: "btn btn-sm", style: "background-color: var(--success); color: white; border: none;" %>
+              <% end %>
+              
+              <%= form_with(model: [:school_admin, enrollment], method: :patch, style: "display: inline;") do |f| %>
+                <%= f.hidden_field :status, value: "rejected" %>
+                <%= f.submit "Reject", class: "btn btn-sm", style: "background-color: var(--danger); color: white; border: none;" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

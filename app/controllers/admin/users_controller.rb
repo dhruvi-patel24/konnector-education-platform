@@ -1,13 +1,14 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_admin!
+  # before_action :ensure_admin!
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   ALLOWED_ROLES = %w[admin school_admin student].freeze
 
   def index
     @role = params[:role] || "school_admin"
-    @users = User.where(role: @role)
+    @users = policy_scope(User)
+    @users = @users.where(role: @role)
 
     respond_to do |format|
       format.html
@@ -52,11 +53,11 @@ class Admin::UsersController < ApplicationController
 
   private
 
-  def ensure_admin!
-    unless current_user.admin?
-      redirect_to root_path, alert: "Access denied."
-    end
-  end
+  # def ensure_admin!
+  #   unless current_user.admin? 
+  #     redirect_to root_path, alert: "Access denied."
+  #   end
+  # end
 
   def set_user
     @user = User.find(params[:id])

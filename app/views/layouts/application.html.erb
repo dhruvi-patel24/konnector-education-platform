@@ -28,6 +28,7 @@
             <%= link_to "Courses", school_admin_courses_path %>
             <%= link_to "Batches", school_admin_batches_path %>
             <%= link_to "Enrollments", school_admin_enrollments_path %>
+            <%= link_to "Students", admin_users_path(role: 'student') %>
             <%= link_to "My School", edit_school_admin_school_path(current_user.school) %>
           <% elsif current_user.student? %>
             <%= "Role: #{current_user.role}" %><br>

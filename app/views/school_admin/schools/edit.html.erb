@@ -1,0 +1,20 @@
+<h1>My School</h1>
+
+<div class="card" style="max-width: 600px;">
+  <%= form_with(model: [:school_admin, @school], url: school_admin_school_path(@school), method: :patch, local: true) do |f| %>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_area :address %>
+    </div>
+
+    <div style="margin-top: 2rem;">
+      <%= f.submit "Update School", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
