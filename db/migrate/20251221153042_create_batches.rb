@@ -1,4 +1,4 @@
-class CreateBatches < ActiveRecord::Migration[8.2]
+class CreateBatches < ActiveRecord::Migration[8.0]
   def change
     create_table :batches do |t|
       t.string :name
