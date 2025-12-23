@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
@@ -18,7 +19,9 @@
             <%= "Role: #{current_user.role}" %><br>
 
             <%= link_to "Schools", admin_schools_path %>
-            <%= link_to "Add School Admin", new_admin_school_admin_path %>
+            <%= link_to "Admins", admin_users_path(role: 'admin') %>
+            <%= link_to "School Admins", admin_users_path(role: 'school_admin') %>
+            <%= link_to "Students", admin_users_path(role: 'student') %>
           <% elsif current_user.school_admin? %>
             <%= "Role: #{current_user.role}" %><br>
 

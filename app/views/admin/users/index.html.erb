@@ -1,0 +1,34 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1><%= @role.titleize.pluralize %></h1>
+  <%= link_to "Add New #{ @role.titleize }", new_admin_user_path(role: @role), class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <% if @role == 'school_admin' || @role == 'student' %>
+          <th>School</th>
+        <% end %>
+        <th>Joined On</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email %></td>
+          <% if @role == 'school_admin' || @role == 'student' %>
+            <td><%= user.school&.name || "N/A" %></td>
+          <% end %>
+          <td><%= user.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <%= link_to 'Edit', edit_admin_user_path(user), style: "margin-right: 1rem;" %>
+            <%= link_to 'Delete', admin_user_path(user), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, style: "color: var(--danger);" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

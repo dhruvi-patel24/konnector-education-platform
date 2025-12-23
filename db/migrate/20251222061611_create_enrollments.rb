@@ -1,4 +1,4 @@
-class CreateEnrollments < ActiveRecord::Migration[8.2]
+class CreateEnrollments < ActiveRecord::Migration[8.0]
   def change
     create_table :enrollments do |t|
       t.references :user, null: false, foreign_key: true
@@ -8,6 +8,6 @@ class CreateEnrollments < ActiveRecord::Migration[8.2]
       t.timestamps
     end
 
-    add_index :enrollments, [:user_id, :batch_id], unique: true
+    add_index :enrollments, [ :user_id, :batch_id ], unique: true
   end
 end
