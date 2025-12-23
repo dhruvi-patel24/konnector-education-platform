@@ -1,0 +1,38 @@
+<h1>Enrollment Requests</h1>
+
+<div class="card">
+  <h3>Request New Enrollment</h3>
+  <%= form_with(model: [:student, Enrollment.new], local: true, class: "nav-links", style: "align-items: flex-end;") do |f| %>
+    <div class="form-group" style="margin-bottom: 0;">
+      <%= f.label :batch_id, "Available Batches" %>
+      <%= f.collection_select :batch_id, @available_batches, :id, :name, { prompt: "Select batch" }, { required: true } %>
+    </div>
+    <%= f.submit "Send Request", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div class="card">
+  <h3>My Requests</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Batch</th>
+        <th>Course</th>
+        <th>Status</th>
+        <th>Requested On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
+        <tr>
+          <td style="font-weight: 600;"><%= enrollment.batch.name %></td>
+          <td><%= enrollment.batch.course.name %></td>
+          <td>
+            <span class="badge badge-<%= enrollment.status %>"><%= enrollment.status.capitalize %></span>
+          </td>
+          <td><%= enrollment.created_at.strftime("%B %d, %Y") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
