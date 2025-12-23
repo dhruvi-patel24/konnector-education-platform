@@ -8,6 +8,6 @@ class CreateEnrollments < ActiveRecord::Migration[8.2]
       t.timestamps
     end
 
-    add_index :enrollments, [:user_id, :batch_id], unique: true
+    add_index :enrollments, [ :user_id, :batch_id ], unique: true
   end
 end

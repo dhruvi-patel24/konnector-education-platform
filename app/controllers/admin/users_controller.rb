@@ -1,19 +1,19 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_admin!
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @role = params[:role] || 'school_admin'
+    @role = params[:role] || "school_admin"
     @users = User.where(role: @role)
-    
+
     respond_to do |format|
       format.html
     end
   end
 
   def new
-    @user = User.new(role: params[:role] || 'student')
+    @user = User.new(role: params[:role] || "student")
   end
 
   def create
@@ -49,7 +49,7 @@ class Admin::UsersController < ApplicationController
 
   def ensure_admin!
     unless current_user.admin?
-      redirect_to root_path, alert: 'Access denied.'
+      redirect_to root_path, alert: "Access denied."
     end
   end
 

@@ -19,7 +19,7 @@ RSpec.describe Admin::SchoolsController, type: :controller do
       school1 = create(:school)
       school2 = create(:school)
       get :index
-      expect(assigns(:schools)).to match_array([school1, school2])
+      expect(assigns(:schools)).to match_array([ school1, school2 ])
     end
   end
 
