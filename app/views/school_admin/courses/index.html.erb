@@ -1,0 +1,25 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+  <h1>Courses</h1>
+  <%= link_to "Create New Course", new_school_admin_course_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Batches</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td style="font-weight: 600;"><%= course.name %></td>
+          <td><%= course.description %></td>
+          <td><%= course.batches.count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

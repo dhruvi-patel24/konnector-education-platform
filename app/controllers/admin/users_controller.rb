@@ -36,6 +36,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    @user.role = safe_role
     if @user.update(user_params)
       redirect_to admin_users_path(role: @user.role), notice: "#{ @user.role.titleize } was successfully updated."
     else
