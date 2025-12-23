@@ -3,6 +3,8 @@ class Admin::UsersController < ApplicationController
   before_action :ensure_admin!
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
 
+  ALLOWED_ROLES = %w[admin school_admin student].freeze
+
   def index
     @role = params[:role] || "school_admin"
     @users = User.where(role: @role)
@@ -18,6 +20,8 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.role = safe_role
+
     if @user.save
       redirect_to admin_users_path(role: @user.role), notice: "#{ @user.role.titleize } was successfully created."
     else
@@ -58,6 +62,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role, :school_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :school_id)
+  end
+
+  def safe_role
+    role = params[:role] || params.dig(:user, :role)
+    ALLOWED_ROLES.include?(role) ? role : "student"
   end
 end
