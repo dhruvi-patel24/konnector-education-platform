@@ -1,0 +1,39 @@
+<h1>My Batches</h1>
+
+<div class="card">
+  <% if @batches.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Batch Name</th>
+          <th>Course</th>
+          <th>Progress</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @batches.each do |batch| %>
+          <% enrollment = batch.enrollments.find_by(user: current_user) %>
+          <tr>
+            <td style="font-weight: 600;"><%= batch.name %></td>
+            <td><%= batch.course.name %></td>
+            <td>
+              <div style="width: 100%; background: var(--border); border-radius: 999px; height: 8px;">
+                <div style="width: <%= enrollment.progress %>%; background: var(--primary); border-radius: 999px; height: 100%;"></div>
+              </div>
+              <span style="font-size: 0.75rem; color: var(--text-light);"><%= enrollment.progress %>% Complete</span>
+            </td>
+            <td>
+              <%= link_to "View Classmates", student_batch_path(batch), class: "btn btn-primary", style: "padding: 0.25rem 0.5rem; font-size: 0.75rem;" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p style="text-align: center; color: var(--text-light); padding: 2rem;">
+      You are not enrolled in any batches yet. 
+      <%= link_to "Request Enrollment", student_enrollments_path, style: "color: var(--primary); font-weight: 600;" %>
+    </p>
+  <% end %>
+</div>

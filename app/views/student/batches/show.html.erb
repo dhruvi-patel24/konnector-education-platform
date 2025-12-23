@@ -1,0 +1,29 @@
+<div style="margin-bottom: 2rem;">
+  <%= link_to "← Back to My Batches", student_batches_path, style: "text-decoration: none; color: var(--text-light); font-weight: 500;" %>
+  <h1 style="margin-top: 1rem;"><%= @batch.name %> - Classmates</h1>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Classmate</th>
+        <th>Progress</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @classmates.each do |classmate| %>
+        <% enrollment = @enrollments.find_by(user: classmate) %>
+        <tr>
+          <td><%= classmate.email %></td>
+          <td>
+            <div style="width: 200px; background: var(--border); border-radius: 999px; height: 8px; display: inline-block; margin-right: 0.5rem;">
+              <div style="width: <%= enrollment.progress %>%; background: var(--primary); border-radius: 999px; height: 100%;"></div>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-light);"><%= enrollment.progress %>%</span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
