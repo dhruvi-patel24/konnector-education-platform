@@ -26,6 +26,7 @@ class Admin::UsersController < ApplicationController
     if @user.save
       redirect_to admin_users_path(role: @user.role), notice: "#{ @user.role.titleize } was successfully created."
     else
+      flash.now[:alert] = @user.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end

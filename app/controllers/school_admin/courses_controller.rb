@@ -18,6 +18,7 @@ class SchoolAdmin::CoursesController < ApplicationController
     if @course.save
       redirect_to school_admin_courses_path, notice: "Course created successfully."
     else
+      flash.now[:alert] = @course.errors.full_messages.join(", ")
       render :new, status: :unprocessable_entity
     end
   end

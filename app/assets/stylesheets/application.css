@@ -8,6 +8,8 @@
   --border: #e2e8f0;
   --success: #22c55e;
   --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
 }
 
 body {
@@ -21,6 +23,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
 }
 
 nav {
@@ -30,11 +33,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .nav-links {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .nav-links a {
@@ -42,8 +47,66 @@ nav {
   color: var(--text-light);
   font-weight: 500;
   transition: color 0.2s;
+  font-size: 0.95rem;
 }
 
 .nav-links a:hover {
   color: var(--primary);
+}
+
+/* --- Alert / Flash Message Styles --- */
+.alert {
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* Success / Notice */
+.alert-notice,
+.alert-success {
+  background-color: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+/* Error / Alert / Danger */
+.alert-alert,
+.alert-error,
+.alert-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+/* Info */
+.alert-info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+/* Warning */
+.alert-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

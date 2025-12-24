@@ -15,6 +15,7 @@ class Student::EnrollmentsController < ApplicationController
     if @enrollment.save
       redirect_to student_enrollments_path, notice: 'Enrollment request sent successfully.'
     else
+      flash.now[:alert] = @enrollment.errors.full_messages.join(", ")
       redirect_to student_enrollments_path, alert: @enrollment.errors.full_messages.to_sentence
     end
   end
