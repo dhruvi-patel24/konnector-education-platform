@@ -20,15 +20,20 @@
       </div>
     <% end %>
 
-    <div class="form-group">
-      <%= f.label :role %>
-      <%= f.select :role, User.roles.keys.map { |r| [r.titleize, r] }, {}, { required: true } %>
-    </div>
+    <% if current_user.school_admin? %>
+      <%= f.hidden_field :role, value: 'student' %>
+      <%= f.hidden_field :school_id, value: current_user.school_id %>
+    <% else %>
+      <div class="form-group">
+        <%= f.label :role %>
+        <%= f.select :role, User.roles.keys.map { |r| [r.titleize, r] }, {}, { required: true } %>
+      </div>
 
-    <div class="form-group">
-      <%= f.label :school_id, "School (Optional for Admin)" %>
-      <%= f.collection_select :school_id, School.all, :id, :name, { include_blank: "None" } %>
-    </div>
+      <div class="form-group">
+        <%= f.label :school_id, "School (Optional for Admin)" %>
+        <%= f.collection_select :school_id, School.all, :id, :name, { include_blank: "None" } %>
+      </div>
+    <% end %>
 
     <div style="margin-top: 2rem;">
       <%= f.submit @user.new_record? ? "Create #{ @user.role.titleize }" : "Update #{ @user.role.titleize }", class: "btn btn-primary" %>

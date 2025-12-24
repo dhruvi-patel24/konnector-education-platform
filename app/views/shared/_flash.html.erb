@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "flash" do %>
+  <% flash.each do |type, message| %>
+    <% 
+      alert_class = case type.to_s
+        when "notice" then "alert-notice"
+        when "alert" then "alert-alert"
+        when "success" then "alert-success"
+        when "error" then "alert-error"
+        else "alert-info"
+      end
+    %>
+    <div class="alert <%= alert_class %>">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>

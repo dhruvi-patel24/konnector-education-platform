@@ -2,7 +2,8 @@
 
 <div class="card" style="margin-bottom: 2rem;">
   <h3>Enroll Student</h3>
-  <%= form_with(model: [:school_admin, Enrollment.new], local: true) do |f| %>
+  <%= form_with(model: [:school_admin, (@enrollment&.new_record? ? @enrollment : Enrollment.new)], local: true) do |f| %>
+    <%= render "shared/errors", object: f.object %>
     <div style="display: flex; gap: 1rem; align-items: flex-end;">
       <div class="form-group" style="flex: 1; margin-bottom: 0;">
         <%= f.label :user_id, "Student" %>

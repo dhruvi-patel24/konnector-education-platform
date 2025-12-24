@@ -14,10 +14,13 @@ class SchoolAdmin::EnrollmentsController < ApplicationController
        if @enrollment.save
          redirect_to school_admin_enrollments_path, notice: "Enrollment created successfully."
        else
-         redirect_to school_admin_enrollments_path, alert: "Failed to create enrollment."
+         @enrollments = policy_scope(Enrollment)
+         render :index, status: :unprocessable_entity
        end
     else
-      redirect_to school_admin_enrollments_path, alert: "You are not authorized to enroll students in this batch."
+      @enrollments = policy_scope(Enrollment)
+      flash.now[:alert] = "You are not authorized to enroll students in this batch."
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +31,8 @@ class SchoolAdmin::EnrollmentsController < ApplicationController
     if @enrollment.update(enrollment_params)
       redirect_to school_admin_enrollments_path, notice: "Enrollment updated successfully."
     else
-      redirect_to school_admin_enrollments_path, alert: "Failed to update enrollment."
+      @enrollments = policy_scope(Enrollment)
+      render :index, status: :unprocessable_entity
     end
   end
 

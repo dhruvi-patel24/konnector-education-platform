@@ -45,10 +45,12 @@
     </nav>
 
     <div class="container">
-      <% flash.each do |type, message| %>
-        <div class="alert alert-<%= type %>">
-          <%= message %>
-        </div>
+      <%= turbo_frame_tag "flash" do %>
+        <% flash.each do |type, message| %>
+          <div class="alert alert-<%= type %>">
+            <%= message %>
+          </div>
+        <% end %>
       <% end %>
 
       <%= yield %>
